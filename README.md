@@ -11,3 +11,7 @@
 - [] Check for unused imports
 - [] Check for no imports for used module
 - [] Consolidate multiple similar imports into one line
+
+### Package for pypi
+- Make a setup.py
+- Publish package!
