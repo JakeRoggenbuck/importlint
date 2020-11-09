@@ -1,4 +1,6 @@
+import difflib
 import re
+from termcolor import colored
 
 
 star_import = re.compile("(^from \*|import \*$)")
@@ -33,7 +35,6 @@ class CheckImports:
     """Check the imports for warnings like using *"""
     def __init__(self, lines):
         self.lines = lines
-        self.check_lines()
 
     def check_bad_practice(self, line):
         if star_import.search(line):
@@ -52,16 +53,15 @@ class ImportLinter:
     Reconstruct the file with before the import block then the imports
     and after the imports.
     Then write the new file"""
-    def __init__(self, input_filepath: str, output_filepath: str):
+    def __init__(self, input_filepath: str):
         self.input_filepath = input_filepath
-        self.output_filepath = output_filepath
         self.lines = self.read_file_lines()
-        self.sorted_imports = SortImports(self.lines).sorted_lines
-        self.import_block = self.get_import_block()
-        self.reconstructed_file = self.reconstruct_file()
-        self.write_file()
 
-        CheckImports(self.sorted_imports)
+        self.sort_imports = SortImports(self.lines)
+        self.import_lines = self.sort_imports.import_lines
+        self.sorted_lines = self.sort_imports.sorted_lines
+
+        self.get_import_block()
 
     def read_file_lines(self):
         file = open(self.input_filepath, "r")
@@ -86,14 +86,31 @@ class ImportLinter:
         lines at the end"""
         before = self.lines[:self.start]
         after = self.lines[self.end+1:]
-        final_file_lines = before + self.sorted_imports + after
+        final_file_lines = before + self.sorted_lines + after
         return final_file_lines
 
     def write_file(self):
         """Write file with reconstructed file as lines"""
-        file = open(self.output_filepath, "w")
+        file = open(self.input_filepath, "w")
         for line in self.reconstructed_file:
             file.write(line)
 
+    def show_diff(self):
+        d = difflib.Differ()
+        diffs = d.compare(self.import_lines, self.sorted_lines)
+        for diff in diffs:
+            diff_type = diff.split()[0]
+            if diff_type == "+":
+                print(colored(diff.strip(), "green"))
+            elif diff_type == "-":
+                print(colored(diff.strip(), "red"))
 
-il = ImportLinter("./test.py", "new.py")
+    def fix(self):
+        self.reconstructed_file = self.reconstruct_file()
+        self.write_file()
+        self.show_diff()
+
+    def report(self):
+        check_imports = CheckImports(self.lines)
+        check_imports.check_lines()
+        self.show_diff()
