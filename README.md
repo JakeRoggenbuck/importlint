@@ -2,9 +2,8 @@
 
 # TODO
 ### Make command line interface for
-- Audit file
-- Correct file in place
-- Correct file to copy
+- Audit file (Done)
+- Correct file in place (Done)
 
 ### Make features: a = can audit, c = can correct
 - [c] Sort imports alphabetically
