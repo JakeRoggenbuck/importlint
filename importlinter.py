@@ -1,6 +1,7 @@
 import difflib
 import re
 from termcolor import colored
+import fire
 
 
 star_import = re.compile("(^from \*|import \*$)")
@@ -114,3 +115,16 @@ class ImportLinter:
         check_imports = CheckImports(self.lines)
         check_imports.check_lines()
         self.show_diff()
+
+
+class ImportLinterFire(object):
+    def check(self, filepath):
+        import_linter = ImportLinter(filepath)
+        import_linter.report()
+
+    def fix(self, filepath):
+        import_linter = ImportLinter(filepath)
+        import_linter.fix()
+
+def run():
+    fire.Fire(ImportLinterFire)
