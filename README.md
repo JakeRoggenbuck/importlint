@@ -1,11 +1,16 @@
 # ImportLint
 Check and fix your module and package imports in python files
 
+# Use
+
 #### Check
 `importlint check test.py`
 
 #### fix
 `importlint fix test.py`
+
+# Install
+`pip install importlint`
 
 # TODO
 ### Make command line interface for
