@@ -32,6 +32,36 @@ class SortImports:
         return sorted(self.import_lines, key=self.named_item)
 
 
+class UnusedImports:
+    def __init__(self, lines: list, all_code_lines: str):
+        self.lines = lines
+        self.all_code_lines = all_code_lines
+        self.all_code = self.get_all()
+
+    def get_all(self):
+        return "".join(self.all_code_lines)
+
+    def split_line(self, line: str):
+        return line.split(" ")
+
+    def get_import_name(self, line: list):
+        if len(line) == 2:
+            return line[1]
+        elif len(line) == 4:
+            return line[3]
+
+    def check_unused(self, module: str):
+        # Check if module is in self.all_code
+        pass
+
+    def check_code(self):
+        for line in self.lines:
+            split_line = self.split_line(line)
+            import_name = self.get_import_name(split_line)
+            print(colored(import_name, "red"))
+            self.check_unused(import_name)
+
+
 class CheckImports:
     """Check the imports for warnings like using *"""
     def __init__(self, lines):
@@ -112,6 +142,8 @@ class ImportLint:
         self.show_diff()
 
     def report(self):
+        unused_imports = UnusedImports(self.import_lines, self.lines)
+        unused_imports.check_code()
         check_imports = CheckImports(self.lines)
         check_imports.check_lines()
         self.show_diff()
