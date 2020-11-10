@@ -46,7 +46,7 @@ class CheckImports:
             self.check_bad_practice(line)
 
 
-class ImportLinter:
+class ImportLint:
     """Open the file, reconstruct with oprdered imports, then write to it
 
     Using the filepath, get the lines and parse out the imports.
@@ -117,14 +117,14 @@ class ImportLinter:
         self.show_diff()
 
 
-class ImportLinterFire(object):
+class ImportLintFire(object):
     def check(self, filepath):
-        import_linter = ImportLinter(filepath)
-        import_linter.report()
+        import_lint = ImportLint(filepath)
+        import_lint.report()
 
     def fix(self, filepath):
-        import_linter = ImportLinter(filepath)
-        import_linter.fix()
+        import_lint = ImportLint(filepath)
+        import_lint.fix()
 
 def run():
-    fire.Fire(ImportLinterFire)
+    fire.Fire(ImportLintFire)

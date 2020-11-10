@@ -3,7 +3,7 @@ from setuptools import setup
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setup(name='importlinter',
+setup(name='importlint',
       version='0.1',
       description='Check and fix your module and package imports in python files',
       long_description=long_description,
@@ -12,11 +12,11 @@ setup(name='importlinter',
       author='Jake Roggenbuck',
       author_email='jake@jr0.org',
       license='MIT',
-      py_modules=['importlinter'],
+      py_modules=['importlint'],
       zip_safe=False,
       entry_points={
             'console_scripts': [
-                'importlinter = importlinter:run'
+                'importlint = importlint:run'
             ]
       },
 )

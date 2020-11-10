@@ -1,11 +1,11 @@
-# ImportLinter
+# ImportLint
 Check and fix your module and package imports in python files
 
 #### Check
-`importlinter check test.py`
+`importlint check test.py`
 
 #### fix
-`importlinter fix test.py`
+`importlint fix test.py`
 
 # TODO
 ### Make command line interface for
