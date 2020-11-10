@@ -1,4 +1,11 @@
 # ImportLinter
+Check and fix your module and package imports in python files
+
+#### Check
+`importlinter check test.py`
+
+#### fix
+`importlinter fix test.py`
 
 # TODO
 ### Make command line interface for
