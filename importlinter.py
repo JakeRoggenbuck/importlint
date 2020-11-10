@@ -1,7 +1,7 @@
 import difflib
+import fire
 import re
 from termcolor import colored
-import fire
 
 
 star_import = re.compile("(^from \*|import \*$)")
