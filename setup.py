@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='importlint',
-      version='0.1',
+      version='0.2',
       description='Check and fix your module and package imports in python files',
       long_description=long_description,
       long_description_content_type="text/markdown",
